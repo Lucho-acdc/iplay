@@ -1,0 +1,1092 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Variables utilitarias */
+:root {
+  --ad-w: 160px;          /* ancho de los side-rails estándar (160x600) */
+  --ad-gap: 16px;         /* separación del borde de la pantalla */
+  --nav-h: 72px;          /* altura aprox de la navbar para offset */
+  --brand-dark: #1b2644;  /* azul oscuro IPlay */
+  --brand-light: #34b3e8; /* celeste IPlay */
+  --fc-min-h: 160px;      /* altura mínima de cada card */
+  --footer-h: 72px;       /* altura aprox del footer fijo */
+}
+
+body {
+  background-color: #f5f5f5;
+  padding: 0;
+  color: #1b2644;
+  line-height: 1.6;
+}
+
+/* Evitar que el footer fijo tape el contenido al final */
+body {
+  padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px));
+}
+@media (min-width: 1201px) {
+  body { padding-bottom: 0; }
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 15px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================= */
+/*   Side rails de Publicidad */
+/* ========================= */
+.ad-skin {
+  position: fixed;
+  top: calc(var(--nav-h) + 16px);
+  z-index: 900; /* por debajo de la navbar pero sobre el fondo */
+}
+
+.ad-skin-left { left: var(--ad-gap); }
+.ad-skin-right { right: var(--ad-gap); }
+
+.ad-box {
+  width: var(--ad-w);
+  height: 530px;
+  background: repeating-linear-gradient(45deg, #e9f3fb, #e9f3fb 10px, #f6fbff 10px, #f6fbff 20px);
+  border: 1px solid #d9e6f2;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(27, 38, 68, 0.12);
+  color: #1b2644;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Ocultar rails en viewports más chicos para no tapar contenido */
+@media (max-width: 1400px) {
+  .ad-skin { display: none; }
+}
+
+.logo img {
+  height: auto;
+  width: 100px;
+  display: flex;
+  flex-shrink: 0;
+  margin-right: 50px;
+}
+
+.nav-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.nav-links li {
+  margin: 0 12px;
+}
+
+/* Estilo btn-2 aplicado a los enlaces de navegación */
+.nav-btn {
+  color: #1b2644;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  padding: 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  transition: all 0.6s ease;
+  display: block;
+  white-space: nowrap;
+}
+
+.nav-btn:hover,
+.nav-btn:active {
+  letter-spacing: 2px;
+  color: #34b3e8;
+}
+
+.nav-btn:after,
+.nav-btn:before {
+  backface-visibility: hidden;
+  border: 1px solid rgba(52, 179, 232, 0);
+  bottom: 0px;
+  content: " ";
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  width: 0;
+}
+
+.nav-btn:hover:after,
+.nav-btn:hover:before {
+  backface-visibility: hidden;
+  border-color: #34b3e8;
+  transition: width 0.3s ease-in-out;
+  width: 70%;
+}
+
+.nav-btn:hover:before {
+  bottom: auto;
+  top: 0;
+  width: 70%;
+}
+
+/* Separadores */
+.nav-links .separator {
+  color: #d0d0d0;
+  font-weight: 300;
+  margin: 0 5px;
+  user-select: none;
+}
+
+/* Fecha y clima */
+.navbar-weather-full {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  width: 150px;
+}
+
+.navbar-date-full {
+  font-size: 12px;
+  color: #666;
+  white-space: nowrap;
+}
+
+.navbar-weather-info-full {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navbar-weather-icon-full {
+  font-size: 14px;
+}
+
+.navbar-weather-temp-full {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1b2644;
+  white-space: nowrap;
+}
+
+/* Estilos para el menú hamburguesa */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 21px;
+  position: relative;
+  z-index: 1001;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 100%;
+  background-color: #1b2644;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Estado activo del menú hamburguesa */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+  .navbar {
+      padding: 15px 20px;
+      flex-wrap: wrap;
+      justify-content: center; /* centrar contenido */
+      position: relative;      /* para posicionar hijos */
+      min-height: 72px; /* altura suficiente para el logo + aire */
+  }
+  
+  .logo {
+      order: 2;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+  }
+  .logo img { margin-right: 0; height: 56px; width: auto; }
+  
+  .nav-container {
+      order: 3;
+      flex: none;
+      width: 100%;
+  }
+  
+  .hamburger {
+      display: flex;
+      order: 1;
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+  
+  /* Ocultar fecha y clima en móviles */
+  .navbar-weather-full {
+      display: none;
+  }
+  
+  .nav-links {
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      flex-direction: column;
+      align-items: center;
+      background-color: #ffffff;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      transition: max-height 0.4s ease;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      left: 0; /* Reset para móvil */
+  }
+  
+  .nav-links.active {
+      max-height: 300px;
+  }
+  
+  .nav-links li {
+      margin: 12px 0;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  
+  .nav-links.active li {
+      opacity: 1;
+      transform: translateY(0);
+  }
+  
+  /* Ocultar separadores en móvil */
+  .nav-links .separator {
+      display: none;
+  }
+  
+  /* Ajustes para el efecto btn-2 en móvil */
+  .nav-btn {
+      padding: 12px 0;
+  }
+  
+  .nav-btn:hover:after,
+  .nav-btn:hover:before {
+      width: 50%;
+  }
+  
+  .nav-btn:hover:before {
+      width: 50%;
+  }
+  
+  /* Retraso para la animación de cada elemento */
+  .nav-links.active li:nth-child(1) {
+      transition-delay: 0.1s;
+  }
+  .nav-links.active li:nth-child(2) {
+      transition-delay: 0.15s;
+  }
+  .nav-links.active li:nth-child(3) {
+      transition-delay: 0.2s;
+  }
+  .nav-links.active li:nth-child(4) {
+      transition-delay: 0.25s;
+  }
+}
+
+.content {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.content h1 {
+  margin-bottom: 20px;
+  color: #1b2644;
+}
+
+/* Parte Reproductor */
+
+/* Reproductor de radio fijo */
+.radio-player {
+  position: fixed;
+  bottom: env(safe-area-inset-bottom, 0);
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #1b2644 0%, #2c3e6e 100%);
+  color: white;
+  padding: 8px 16px; /* más compacto */
+  padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px)); /* evitar que quede oculto */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  border-top: 1px solid #34b3e8;
+}
+
+.radio-player-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.radio-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.radio-station {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 3px;
+  color: #34b3e8;
+}
+
+.now-playing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.now-playing-label {
+  opacity: 0.8;
+  font-size: 11px;
+}
+
+.song-title {
+  max-width: 250px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.radio-controls {
+  display: flex;
+  align-items: center;
+}
+
+/* Estado inicial (pausado): centrar play y ocultar volumen */
+/* Transición suave del toggle del volumen dentro del área de controles */
+.radio-controls { --volw: 120px; }
+
+.radio-player .volume-control {
+  width: var(--volw);
+  opacity: 1;
+  transform: translateX(0) scaleX(1);
+  transform-origin: left center;
+  overflow: hidden;
+  transition: width 0.28s ease, opacity 0.22s ease, transform 0.28s ease;
+}
+
+.radio-player:not(.is-playing) .volume-control {
+  width: 0;              /* que el play quede pegado a la derecha */
+  opacity: 0;
+  transform: translateX(6px) scaleX(0.85);
+  pointer-events: none;
+}
+
+/* Botón play/pausa - ESTILOS CORREGIDOS */
+.playBut {
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.playBut svg {
+  width: 100%;
+  height: 100%;
+}
+
+.playBut .circle {
+  stroke: #34b3e8;
+  stroke-dasharray: 650;
+  stroke-dashoffset: 650;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+.playBut .triangle {
+  stroke: #ffffff;
+  stroke-dasharray: 240;
+  stroke-dashoffset: 480;
+  transition: all 0.3s ease;
+}
+
+/* Barras de pausa */
+.pause-bar {
+  stroke: #ffffff;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.pause-bar-left {
+  transform: translateX(-20px);
+}
+
+.pause-bar-right {
+  transform: translateX(20px);
+}
+
+/* ESTADO PLAY (por defecto) */
+.playBut:not(.playing) .circle {
+  stroke-dashoffset: 650;
+  opacity: 0.3;
+}
+
+.playBut:not(.playing) .triangle {
+  stroke-dashoffset: 480;
+  opacity: 1;
+}
+
+.playBut:not(.playing) .pause-bar {
+  opacity: 0;
+}
+
+.playBut:not(.playing) .pause-bar-left {
+  transform: translateX(-20px);
+}
+
+.playBut:not(.playing) .pause-bar-right {
+  transform: translateX(20px);
+}
+
+/* ESTADO PAUSA (reproduciendo) */
+.playBut.playing .circle {
+  stroke-dashoffset: 0;
+  opacity: 1;
+  animation: circlePulse 1.5s infinite ease-in-out;
+}
+
+.playBut.playing .triangle {
+  stroke-dashoffset: 0;
+  opacity: 0;
+}
+
+.playBut.playing .pause-bar {
+  opacity: 1;
+}
+
+.playBut.playing .pause-bar-left {
+  transform: translateX(0);
+}
+
+.playBut.playing .pause-bar-right {
+  transform: translateX(0);
+}
+
+/* Efecto de pulso para el círculo */
+@keyframes circlePulse {
+  0% {
+    stroke-width: 7;
+  }
+  50% {
+    stroke-width: 9;
+  }
+  100% {
+    stroke-width: 7;
+  }
+}
+
+/* Hover effects */
+.playBut:hover .circle {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+
+.playBut:not(.playing):hover .triangle {
+  animation: nudge 0.6s ease-in-out;
+}
+
+.playBut.playing:hover .pause-bar {
+  stroke: #34b3e8;
+}
+
+@keyframes nudge {
+  0% {
+    transform: translateX(0);
+  }
+  30% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  70% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Transiciones para animaciones suaves */
+.playBut .triangle,
+.playBut .pause-bar {
+  transition: all 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Control de volumen estilizado - ESTILOS CORREGIDOS */
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 15px;
+}
+
+.speaker {
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+  transform: translateY(-3px); /* afinar alineación vertical */
+}
+
+.speaker svg {
+  width: 100%;
+  height: 100%;
+}
+
+.vlCtrl {
+  width: 70px; /* barra más compacta */
+  height: 24px; /* consistente con viewBox y footer compacto */
+  transform: translateY(-1px); /* centrado visual */
+}
+
+.vlCtrl svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.volElem {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+#speakB, #arcBigB, #arcSmB {
+  stroke: #ffffff;
+  opacity: 0.4;
+}
+
+#speakF, #arcBigF, #arcSmF {
+  stroke: #34b3e8;
+  transition: opacity 0.2s ease, stroke-dasharray 0.2s ease;
+}
+
+#crossLtRb, #crossLbRt {
+  stroke: #c40000;
+  opacity: 0.85;
+  transform: scale(0);
+  stroke-width: 8;
+  transform-origin: 50% 50%;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#volCtrlLineB {
+  stroke: #a0c1d9;
+  opacity: 0.3;
+  stroke-linecap: butt; /* Cambiar a 'butt' para terminaciones cuadradas */
+}
+
+#volCtrlLineF {
+  stroke: #34b3e8;
+  stroke-linecap: butt; /* Cambiar a 'butt' para terminaciones cuadradas */
+}
+
+#volCtrlCircle {
+  fill: #34b3e8;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  stroke: none;
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3)); /* Sombra para mejor visibilidad */
+}
+
+/* Pulso/latido para las ondas de volumen */
+#arcSmF.pulsing {
+  animation: wavePulseSm 0.9s ease-in-out infinite;
+}
+
+#arcBigF.pulsing {
+  animation: wavePulseBig 1.2s ease-in-out infinite;
+}
+
+@keyframes wavePulseSm {
+  0% { opacity: 0.7; stroke-width: 5; }
+  50% { opacity: 1;   stroke-width: 6.5; }
+  100% { opacity: 0.7; stroke-width: 5; }
+}
+
+@keyframes wavePulseBig {
+  0% { opacity: 0.6; stroke-width: 5; }
+  50% { opacity: 0.95; stroke-width: 6.5; }
+  100% { opacity: 0.6; stroke-width: 5; }
+}
+
+#volCtrlCircle:hover {
+  transform: scale(1.1);
+}
+
+/* Ajustes responsivos */
+/* Desktop y tablet: mantener controles a la derecha; no centrar en pausa */
+
+@media screen and (max-width: 768px) {
+  .volume-control {
+    margin-left: 10px;
+  }
+  .radio-controls { --volw: 90px; }
+  
+  .speaker {
+    width: 22px;
+    height: 16px;
+  }
+  
+  .vlCtrl {
+    width: 56px;
+    height: 20px;
+  }
+  /* Mantener layout horizontal como desktop */
+  .radio-player-container {
+    flex-direction: row;
+    gap: 10px;
+    text-align: initial;
+  }
+  .radio-info { align-items: flex-start; order: initial; }
+  .radio-controls { order: initial; }
+  
+  .playBut {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .song-title {
+    max-width: 200px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .volume-control {
+    margin-left: 5px;
+    gap: 5px;
+  }
+  .radio-controls { --volw: 70px; }
+  /* Ubicar controles a la derecha y mostrar parlante a la izquierda del play al reproducir */
+  .radio-controls { margin-left: auto; 
+    gap: 5px}
+  .radio-controls .volume-control { order: 1; }
+  .radio-controls .playBut { order: 2; margin-right: 8px; }
+
+  /* Transición suave de aparición del parlante en móviles */
+  .radio-player:not(.is-playing) .volume-control { opacity: 0; transform: translateX(8px); pointer-events: none; }
+  /* En móviles mostrar solo play y parlante (sin slider) */
+  .radio-player.is-playing .volume-control {
+    width: auto;
+    opacity: 1;
+    transform: none;
+  }
+  .vlCtrl { display: none !important; }
+  
+  .vlCtrl {
+    width: 48px;
+    height: 18px;
+  }
+  
+  .radio-player {
+    padding: 7px 12px;
+    padding-bottom: calc(7px + env(safe-area-inset-bottom, 0px));
+  }
+  
+  .radio-station { font-size: 13px; }
+  
+  .now-playing { flex-direction: row; gap: 5px; font-size: 10px; }
+  
+  .song-title { max-width: 150px; font-size: 10px; }
+  
+  .playBut {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+
+
+/* Sección */
+.break-silence-section {
+  min-height: var(--hero-min-h, 100svh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  overflow: hidden; /* evitar mini scroll por redondeos */
+}
+
+.break-silence-container {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr 1.5fr 0.5fr;
+  padding: 24px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.ads-column { display: block; }
+
+.text-column {
+  display: grid;
+  grid-template-rows: 1fr 4fr; /* 1 fila para frase, 4 para botones */
+  align-items: end;
+  color: #1b2644;
+  padding-left: 10px;
+}
+
+.break-silence-title {
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  transform: scale(1,2);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: right;
+}
+
+.break-silence-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  align-self: stretch;
+}
+
+.media-column {
+  display: flex;
+  align-items: flex-start; /* alinear el video arriba */
+  justify-content: center;
+}
+
+/* Mantener ratio para el video y ocultar controles: efecto GIF */
+.video-aspect {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: calc(100vh - var(--nav-h) - var(--footer-h) - 48px);
+  border-radius: 12px;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.media-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e9ecef;
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+.media-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none; /* sin interacción, como GIF */
+  outline: none;
+}
+.media-video:focus { outline: none; }
+.video-aspect:focus { outline: none; }
+
+/* Ocultar UI nativa del video en navegadores WebKit */
+video::-webkit-media-controls-enclosure,
+video::-webkit-media-controls,
+video::-webkit-media-controls-overlay-play-button,
+video::-webkit-media-controls-panel {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+/* Grid 3/4: 4 bloques en desktop, 2 en mediano, 1 en móvil */
+.features-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  align-items: stretch; /* que todas las celdas crezcan igual */
+}
+
+.feature-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--fc-min-h);
+  padding: 14px 40px 14px 20px; /* más padding a derecha por flecha */
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+              linear-gradient(135deg, var(--brand-dark), var(--brand-light)) border-box;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(27,38,68,0.04);
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, background-color .2s ease;
+  will-change: transform;
+  color: var(--brand-dark);
+  height: 100%; /* ocupar alto de la grid cell */
+}
+
+.feature-card .fc-label {
+  font-weight: 800;
+  letter-spacing: .2px;
+  background-image: linear-gradient(135deg, var(--brand-dark), var(--brand-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Nuevo layout interno: icono + título + subtítulo */
+.feature-card .fc-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 14px;
+  color: var(--brand-light);
+  flex: 0 0 auto;
+}
+.feature-card .fc-content { display: grid; }
+.feature-card .fc-title {
+  font-weight: 800;
+  background-image: linear-gradient(135deg, var(--brand-dark), var(--brand-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.feature-card .fc-subtitle {
+  font-size: 0.8rem;
+  color: #5b6b86;
+  margin-top: 4px;
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 12px;
+  bottom: -12px;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 70%);
+  opacity: 0;
+  transform: translateY(-2px) scale(.8);
+  transition: opacity .25s ease, transform .25s ease;
+  pointer-events: none;
+}
+
+.feature-card::after {
+  content: "›";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  line-height: 1;
+  color: var(--brand-light);
+  transition: transform .25s ease;
+}
+
+.feature-card:hover, .feature-card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(27, 38, 68, 0.14), 0 2px 6px rgba(27, 38, 68, 0.08);
+  background: linear-gradient(#fbfdff, #fbfdff) padding-box,
+              linear-gradient(135deg, var(--brand-dark), var(--brand-light)) border-box;
+}
+
+.feature-card:hover::after, .feature-card:focus-visible::after { /* flecha */
+  transform: translate(3px, -50%);
+}
+
+/* Sombra elíptica al flotar */
+.feature-card:hover::before, .feature-card:focus-visible::before {
+  opacity: .7;
+  transform: translateY(0) scale(1);
+}
+
+
+
+.feature-card:focus-visible {
+  outline: 2px solid #34b3e8;
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media screen and (max-width: 1200px) {
+  /* Tablet horizontal: invertir columnas (media izq, texto der) y ocultar ads */
+  .break-silence-container { grid-template-columns: 0.3fr 1fr 1fr 0.3fr; }
+  .text-column { grid-column: 3; }
+  .media-column { grid-column: 2; }
+  .ads-column { display: none; }
+}
+
+/* Solo tablet en horizontal: sin scroll general */
+@media screen and (min-width: 901px) and (max-width: 1200px) and (orientation: landscape) {
+  body { overflow-y: hidden; }
+}
+
+@media screen and (max-width: 900px) {
+  .break-silence-container {
+    grid-template-columns: 1fr; /* apilado */
+  }
+  .text-column {
+    padding: 30px 20px;
+    grid-template-rows: auto auto; /* se adapta */
+  }
+  .media-column { display: none; }
+  .video-aspect { aspect-ratio: 16 / 9; max-height: 40vh; }
+  .ads-column { display: none; }
+  body { overflow-y: auto; }
+}
+
+@media screen and (max-width: 768px) {
+  .features-grid { grid-template-columns: 1fr; }
+}
+
+/* ======= Página de Cámaras ======= */
+.cams-section {
+  min-height: calc(100vh - var(--nav-h) - var(--footer-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.cams-container {
+  width: min(1100px, 100%);
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.cam-card {
+  display: grid;
+  grid-template-rows: auto auto;
+  text-decoration: none;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+              linear-gradient(135deg, var(--brand-dark), var(--brand-light)) border-box;
+  overflow: hidden;
+  color: var(--brand-dark);
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease;
+}
+
+.cam-card:hover { transform: translateY(-6px); box-shadow: 0 10px 24px rgba(27,38,68,.14); }
+
+.cam-thumb { aspect-ratio: 16/9; overflow: hidden; }
+.cam-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.cam-title { padding: 14px 16px; font-weight: 800; color: var(--brand-dark); }
+
+@media (max-width: 900px) {
+  .cams-container { grid-template-columns: 1fr; }
+}
+
+/* ======= Página de Noticias ======= */
+.news-section {
+  min-height: calc(100vh - var(--nav-h) - var(--footer-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.news-container { width: min(1100px, 100%); padding: 24px; }
+.news-heading { font-size: 1.6rem; margin: 6px 4px 16px; font-weight: 800; color: var(--brand-dark); }
+
+/* Filtros (tabs) */
+.news-filter { display: flex; gap: 10px; padding: 6px 4px 14px; flex-wrap: wrap; }
+.news-tab {
+  appearance: none;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  background: linear-gradient(#ffffff,#ffffff) padding-box,
+              linear-gradient(135deg, var(--brand-dark), var(--brand-light)) border-box;
+  color: var(--brand-dark);
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.news-tab:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(27,38,68,.12); }
+.news-tab.is-active { background: linear-gradient(#f7fbff,#f7fbff) padding-box,
+                               linear-gradient(135deg, var(--brand-dark), var(--brand-light)) border-box; }
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.news-card {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  grid-template-areas:
+    'thumb title'
+    'thumb meta';
+  text-decoration: none;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+              linear-gradient(135deg, var(--brand-dark), var(--brand-light)) border-box;
+  color: var(--brand-dark);
+  padding: 12px 14px;
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease;
+}
+.news-card:hover { transform: translateY(-6px); box-shadow: 0 10px 24px rgba(27,38,68,.14); }
+.news-thumb { grid-area: thumb; width: 92px; height: 92px; border-radius: 10px; overflow: hidden; background: #eef4fb; display: flex; align-items: center; justify-content: center; }
+.news-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.news-title { grid-area: title; font-weight: 800; margin: 2px 0 8px 10px; line-height: 1.3; }
+.news-meta { grid-area: meta; font-size: .88rem; color: #5b6b86; display: flex; gap: 10px; align-items: center; margin-left: 10px; }
+.news-source { font-weight: 600; }
+.news-time { opacity: 0.85; }
+.news-loading { grid-column: 1/-1; padding: 24px; text-align: center; color: #5b6b86; }
+
+@media (max-width: 900px) {
+  .news-grid { grid-template-columns: 1fr; }
+}

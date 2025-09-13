@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPlay Radio</title>
+    <link rel="stylesheet" href="css/stylePrueba.css">
+    <link rel="shortcut icon" href="assets/IPlayLogo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="hamburger" id="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <div class="logo">
+            <img src="assets/IPlayRancho.png" alt="IPlay Logo">
+        </div>
+        
+        <div class="nav-container">
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#" class="nav-btn">Inicio</a></li>
+                <li class="separator">|</li>
+                <li><a href="#" class="nav-btn">La Radio</a></li>
+                <li class="separator">|</li>
+                <li><a href="#" class="nav-btn">Contacto</a></li>
+            </ul>
+        </div>
+
+        <!-- Fecha y clima integrados en la navbar - Versión completa -->
+        <div class="navbar-weather-full">
+            <span class="navbar-date-full" id="navbar-date-full">miércoles 10 de septiembre, 2025</span>
+            <div class="navbar-weather-info-full">
+                <span class="navbar-weather-icon-full" id="navbar-weather-icon-full">🌤️</span>
+                <span class="navbar-weather-temp-full" id="navbar-weather-temp-full">13° Buenos Aires</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedores para Ads laterales (rails) -->
+    <!-- Reemplaza los div internos por tus tags de ad server cuando los tengas -->
+    <div class="ad-skin ad-skin-left" aria-label="Publicidad lateral izquierda">
+        <div class="ad-box" id="ad-left-rail" data-slot="left-rail-200x300">Publicidad 160x600</div>
+    </div>
+    <div class="ad-skin ad-skin-right" aria-label="Publicidad lateral derecha">
+        <div class="ad-box" id="ad-right-rail" data-slot="right-rail-200x300">Publicidad 160x600</div>
+    </div>
+
+
+    <!-- Sección principal: video tipo GIF + grid -->
+<section class="break-silence-section">
+    <div class="break-silence-container">
+
+        <!-- Columna 1/3: seguramente cámaras -->
+        <div class="ads-column">
+            <div class="ads-aspect">
+                        
+            </div>
+        </div>
+
+        <!-- Columna 1/3: Grid de 4 módulos -->
+        <div class="text-column">
+            <p class="break-silence-subtitle">Acá la música no espera: iPlay es tu radio en streaming, en vivo y sin cortes. Prendete con tus hits, descubrí artistas nuevos y volvé a esos temas que te mueven.</p>
+
+            <div class="features-grid">
+                <a class="feature-card" href="paginas/camaras.html">
+                    <span class="fc-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="6" width="14" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M17 10l4-2v8l-4-2v-4z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </span>
+                    <span class="fc-content">
+                        <span class="fc-title">Cámaras en vivo</span>
+                        <span class="fc-subtitle">Mirá los estudios y móviles</span>
+                    </span>
+                </a>
+                <a class="feature-card" href="paginas/noticias.html">
+                    <span class="fc-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M7 8h10M7 12h10M7 16h6" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </span>
+                    <span class="fc-content">
+                        <span class="fc-title">Últimas noticias</span>
+                        <span class="fc-subtitle">Lo que está pasando ahora</span>
+                    </span>
+                </a>
+                <a class="feature-card" href="#entrevistas">
+                    <span class="fc-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3a4 4 0 014 4v3a4 4 0 11-8 0V7a4 4 0 014-4z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 14h8v2a4 4 0 01-8 0v-2z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </span>
+                    <span class="fc-content">
+                        <span class="fc-title">Entrevistas</span>
+                        <span class="fc-subtitle">Charlas con artistas y referentes</span>
+                    </span>
+                </a>
+                <a class="feature-card" href="#recomendaciones">
+                    <span class="fc-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2l2.9 6.1L22 9.2l-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 7.1-1.1L12 2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </span>
+                    <span class="fc-content">
+                        <span class="fc-title">Recomendaciones</span>
+                        <span class="fc-subtitle">Playlist y perlas del equipo</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Columna 1/3: Video en loop (tipo GIF) -->
+        <div class="media-column">
+            <div class="video-aspect">
+                <video class="media-video" src="assets/Finalc.mp4" preload="auto" autoplay muted loop playsinline></video>
+            </div>
+        </div>
+
+        <div class="ads-column">
+            <div class="ads-aspect">
+                
+            </div>
+        </div>
+     
+    </div>
+</section>
+
+<!-- Footer con reproductor de radio -->
+<footer class="radio-player">
+    <div class="radio-player-container">
+        <div class="radio-info">
+            <div class="radio-station">IPlay Radio</div>
+            <div class="now-playing" id="now-playing">
+                <span class="song-title" id="song-title">Dale PLAY a tu día</span>
+            </div>
+        </div>
+        
+        <div class="radio-controls">
+            <a href='#' class='playBut' id="play-btn">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                     x="0px" y="0px" width="50px" height="50px" viewBox="0 0 213.7 213.7" 
+                     enable-background="new 0 0 213.7 213.7" xml:space="preserve">
+                  <!-- Triángulo de play -->
+                  <polygon class='triangle' fill="none" stroke-width="7" stroke-linecap="round" 
+                           stroke-linejoin="round" stroke-miterlimit="10" 
+                           points="73.5,62.5 148.5,105.8 73.5,149.1"/>
+                  
+                  <!-- Barras de pausa -->
+                  <line class="pause-bar pause-bar-left" x1="85" y1="65" x2="85" y2="145" fill="none" stroke-width="12" stroke-linecap="round"/>
+                  <line class="pause-bar pause-bar-right" x1="130" y1="65" x2="130" y2="145" fill="none" stroke-width="12" stroke-linecap="round"/>
+                  
+                  <!-- Círculo exterior -->
+                  <circle class='circle' fill="none" stroke-width="7" stroke-linecap="round" 
+                          stroke-linejoin="round" stroke-miterlimit="10" cx="106.8" cy="106.8" r="103.3"/>
+                </svg>
+              </a>
+            
+              <div class="volume-control">
+                <div class="speaker">
+                    <svg viewBox="0 0 100 77" xmlns="http://www.w3.org/2000/svg">
+                        <path id="speakB" class="volElem" d="M51.2,18.5v-13c0-2.1-2.5-3.3-4.1-1.9L21.8,25.9c-1.4,1.2-3.1,1.9-4.9,1.9H8.2c-2.3,0-4.2,1.9-4.2,4.2v13.3c0,2.3,1.9,4.2,4.2,4.2H17c1.9,0,3.7,0.7,5.1,1.9l25,22c1.6,1.4,4.1,0.3,4.1-1.9v-13" opacity="0.4"/>
+                        <path id="speakF" class="volElem" d="M51.2,18.5v-13c0-2.1-2.5-3.3-4.1-1.9L21.8,25.9c-1.4,1.2-3.1,1.9-4.9,1.9H8.2c-2.3,0-4.2,1.9-4.2,4.2v13.3c0,2.3,1.9,4.2,4.2,4.2H17c1.9,0,3.7,0.7,5.1,1.9l25,22c1.6,1.4,4.1,0.3,4.1-1.9v-13"/>
+                        <path id="arcBigB" class="volElem" d="M72.2,64.1C81.1,59,87,49.4,87,38.5c0-10.9-5.9-20.5-14.8-25.6" opacity="0.4"/>
+                        <path id="arcBigF" class="volElem" d="M72.2,64.1C81.1,59,87,49.4,87,38.5c0-10.9-5.9-20.5-14.8-25.6"/>
+                        <path id="arcSmB" class="volElem" d="M59,51.3c4.4-2.6,7.4-7.4,7.4-12.8s-3-10.3-7.4-12.8" opacity="0.4" />
+                        <path id="arcSmF" class="volElem" d="M59,51.3c4.4-2.6,7.4-7.4,7.4-12.8s-3-10.3-7.4-12.8"/>
+                        <line id="crossLtRb" class="volElem" x1="43.8" y1="29.2" x2="62.6" y2="47.8" transform="scale(0)" />
+                        <line id="crossLbRt" class="volElem" x1="62.6" y1="29.2" x2="43.8" y2="47.8" transform="scale(0)" />
+                    </svg>
+                </div>
+                
+                <div class="vlCtrl">
+                    <svg viewBox="0 0 220 27" xmlns="http://www.w3.org/2000/svg">
+                        <line id="volCtrlLineB" class="volElem" x1="13" y1="13.5" x2="187" y2="13.5" opacity="0.3"/>
+                        <line id="volCtrlLineF" class="volElem" x1="13" y1="13.5" x2="187" y2="13.5"/>
+                        <circle id="volCtrlCircle" cx="187" cy="13.5" r="13"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <audio id="radio-stream" preload="none" crossorigin="anonymous" playsinline>
+        <source src="https://168.90.252.40/listen/intelinet_play/stream" type="audio/mpeg">
+    </audio>
+</footer>
+
+    <script src="js/scriptPrueba.js"></script>
+</body>
+</html>
