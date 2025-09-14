@@ -165,6 +165,27 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+
+    // Abrir secciones inline (cámaras/noticias) bajo la principal
+    function openInlineSection(id) {
+        const sec = document.getElementById(id);
+        if (!sec) return;
+        sec.classList.add('is-open');
+        // permitir scroll si estaba al tope
+        document.body.style.overflowY = 'auto';
+        // scroll con offset de la navbar
+        const header = document.querySelector('.navbar');
+        const offset = (header ? header.offsetHeight : 0) + 6;
+        const top = sec.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+    }
+    document.querySelectorAll('[data-open-section]').forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const id = el.getAttribute('data-open-section');
+            openInlineSection(id);
+        });
+    });
 });
 
 // =============== Noticias (Google News RSS) ===============
@@ -324,9 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
         list.forEach(n => {
             const a = document.createElement('a');
             a.className = 'news-card'; a.href = n.link; a.target = '_blank'; a.rel = 'noopener';
-            const imgSrc = n.image || fallbackIcon(n.link);
             a.innerHTML = `
-                <div class=\"news-thumb\"><img src=\"${imgSrc}\" alt=\"\"></div>
                 <div class=\"news-title\">${n.title}</div>
                 <div class=\"news-meta\"><span class=\"news-source\">${n.src || host(n.link)}</span><span class=\"news-time\">${n.date ? timeAgo(n.date) : ''}</span></div>`;
             frag.appendChild(a);
@@ -516,10 +535,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Manejo de reconexión y failover de stream
-    const STREAM_SOURCES = [
-        'https://168.90.252.40/listen/intelinet_play/stream',
-        'http://168.90.252.40/listen/intelinet_play/stream'
-    ];
+    const STREAM_SOURCES = (location.protocol === 'https:'
+        ? ['https://168.90.252.40/listen/intelinet_play/stream'] // evitar HTTP en HTTPS por mixed content
+        : ['http://168.90.252.40/listen/intelinet_play/stream','https://168.90.252.40/listen/intelinet_play/stream']
+    );
     let streamIndex = 0;
     let reconnectTimer = null;
     let reconnectDelay = 3000; // ms (aumenta progresivo)

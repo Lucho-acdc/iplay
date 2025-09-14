@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPlay Radio</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/stylePrueba.css">
     <link rel="shortcut icon" href="assets/IPlayLogo.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -24,9 +24,9 @@
             <ul class="nav-links" id="nav-links">
                 <li><a href="#" class="nav-btn">Inicio</a></li>
                 <li class="separator">|</li>
-                <li><a href="#" class="nav-btn">La Radio</a></li>
+                <li><a href="#sec-laradio" class="nav-btn" data-open-section="sec-laradio">La Radio</a></li>
                 <li class="separator">|</li>
-                <li><a href="#" class="nav-btn">Contacto</a></li>
+                <li><a href="#sec-contacto" class="nav-btn" data-open-section="sec-contacto">Contacto</a></li>
             </ul>
         </div>
 
@@ -51,7 +51,7 @@
 
 
     <!-- Sección principal: video tipo GIF + grid -->
-<section class="break-silence-section">
+<section class="break-silence-section theme-dark">
     <div class="break-silence-container">
 
         <!-- Columna 1/3: seguramente cámaras -->
@@ -66,7 +66,7 @@
             <p class="break-silence-subtitle">Acá la música no espera: iPlay es tu radio en streaming, en vivo y sin cortes. Prendete con tus hits, descubrí artistas nuevos y volvé a esos temas que te mueven.</p>
 
             <div class="features-grid">
-                <a class="feature-card" href="paginas/camaras.html">
+                <a class="feature-card" href="#sec-camaras" data-open-section="sec-camaras">
                     <span class="fc-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="3" y="6" width="14" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
@@ -78,7 +78,7 @@
                         <span class="fc-subtitle">Mirá los estudios y móviles</span>
                     </span>
                 </a>
-                <a class="feature-card" href="paginas/noticias.html">
+                <a class="feature-card" href="#sec-noticias" data-open-section="sec-noticias">
                     <span class="fc-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
@@ -90,7 +90,7 @@
                         <span class="fc-subtitle">Lo que está pasando ahora</span>
                     </span>
                 </a>
-                <a class="feature-card" href="#entrevistas">
+                <a class="feature-card" href="#sec-entrevistas" data-open-section="sec-entrevistas">
                     <span class="fc-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 3a4 4 0 014 4v3a4 4 0 11-8 0V7a4 4 0 014-4z" stroke="currentColor" stroke-width="2"/>
@@ -102,7 +102,7 @@
                         <span class="fc-subtitle">Charlas con artistas y referentes</span>
                     </span>
                 </a>
-                <a class="feature-card" href="#recomendaciones">
+                <a class="feature-card" href="#sec-recomendaciones" data-open-section="sec-recomendaciones">
                     <span class="fc-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2l2.9 6.1L22 9.2l-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 7.1-1.1L12 2z" stroke="currentColor" stroke-width="2" fill="none"/>
@@ -130,6 +130,215 @@
         </div>
      
     </div>
+</section>
+
+<!-- Sección inline: La Radio (oculta hasta abrir) -->
+<section id="sec-laradio" class="inline-section simple-section theme-light">
+  <div class="section-grid">
+    <div class="section-main">
+      <h1 class="news-heading">La Radio</h1>
+      <div class="two-grid">
+        <div class="tile-card">Programación</div>
+        <div class="tile-card">Equipo</div>
+        <div class="tile-card">Estudios</div>
+        <div class="tile-card">Sponsors</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+<div class="section-fade fade-dark"></div>
+
+<!-- Sección inline: Cámaras (oculta hasta abrir) -->
+<section id="sec-camaras" class="inline-section cams-section theme-dark">
+    <div class="section-grid">
+      <div class="section-main">
+        <h1 class="news-heading">Cámaras en vivo</h1>
+        <div class="cams-container">
+        <a class="cam-card" href="https://www.skylinewebcams.com/es/webcam/argentina/buenos-aires/buenos-aires/buenos-aires.html" target="_blank" rel="noopener">
+            <div class="cam-thumb">
+                <img src="https://embed.skylinewebcams.com/img/1071.jpg" alt="【LIVE】 Argentina - Buenos Aires | SkylineWebcams">
+            </div>
+            <div class="cam-title">Buenos Aires - Centro</div>
+        </a>
+        
+        <a class="cam-card" href="https://www.skylinewebcams.com/es/webcam/argentina/buenos-aires/buenos-aires/buenos-aires.html" target="_blank" rel="noopener">
+            <div class="cam-thumb">
+                <img src="https://embed.skylinewebcams.com/img/1071.jpg" alt="【LIVE】 Argentina - Buenos Aires | SkylineWebcams">
+            </div>
+            <div class="cam-title">Buenos Aires - Panorámica</div>
+        </a>
+
+        <a class="cam-card" href="https://www.skylinewebcams.com/es/webcam/argentina/tierra-del-fuego/ushuaia/tren-del-fin-del-mundo.html" target="_blank" rel="noopener">
+            <div class="cam-thumb">
+                <img src="https://embed.skylinewebcams.com/img/1053.jpg" alt="【LIVE】 El Tren del Fin del Mundo - Ushuaia | SkylineWebcams">
+            </div>
+            <div class="cam-title">Ushuaia - Tren del Fin del Mundo</div>
+        </a>
+
+        <a class="cam-card" href="https://www.skylinewebcams.com/es/webcam/argentina/provincia-de-mendoza/san-rafael/canon-del-atuel.html" target="_blank" rel="noopener">
+            <div class="cam-thumb">
+                <img src="https://embed.skylinewebcams.com/img/5016.jpg" alt="【LIVE】 Cañón del Atuel - Argentina | SkylineWebcams">
+            </div>
+            <div class="cam-title">Mendoza - Cañón del Atuel</div>
+        </a>
+        </div>
+      </div>
+    </div>
+    
+</section>
+
+<div class="section-fade fade-light"></div>
+
+<!-- Sección inline: Noticias (oculta hasta abrir) -->
+<section id="sec-noticias" class="inline-section news-section theme-light">
+    <div class="section-grid">
+      <div class="section-main">
+        <div class="news-container">
+            <h1 class="news-heading">Últimas noticias</h1>
+            <div class="news-filter" id="news-filter" role="tablist" aria-label="Categorías de noticias">
+                <button class="news-tab is-active" role="tab" aria-selected="true" data-category="actualidad">Actualidad</button>
+                <button class="news-tab" role="tab" aria-selected="false" data-category="deportes">Deportes</button>
+                <button class="news-tab" role="tab" aria-selected="false" data-category="espectaculos">Espectáculos</button>
+            </div>
+            <div id="news-grid" class="news-grid" aria-live="polite">
+                <div class="news-loading">Cargando noticias…</div>
+            </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<div class="section-fade fade-dark"></div>
+
+<!-- Sección inline: Entrevistas -->
+<section id="sec-entrevistas" class="inline-section simple-section theme-dark">
+  <div class="section-grid">
+    <div class="section-main">
+      <div class="iv-hero" style="background-image:url('assets/entrevista-hero.jpg');">
+        <div class="iv-overlay">
+          <h2 class="iv-title">Entrevista a Invitado Especial</h2>
+          <div class="iv-sub">12 de septiembre, 2025</div>
+        </div>
+      </div>
+      <div class="iv-row">
+        <a class="iv-card" href="#" style="background-image:url('assets/entrevista-1.jpg');">
+          <div class="iv-card-meta"><span class="iv-name">Artista 1</span><span class="iv-date">Ago 2025</span></div>
+        </a>
+        <a class="iv-card" href="#" style="background-image:url('assets/entrevista-2.jpg');">
+          <div class="iv-card-meta"><span class="iv-name">Artista 2</span><span class="iv-date">Jul 2025</span></div>
+        </a>
+        <a class="iv-card" href="#" style="background-image:url('assets/entrevista-3.jpg');">
+          <div class="iv-card-meta"><span class="iv-name">Artista 3</span><span class="iv-date">Jun 2025</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-fade fade-light"></div>
+<!-- Sección inline: Recomendaciones -->
+<section id="sec-recomendaciones" class="inline-section simple-section theme-light">
+  <div class="section-grid">
+    <div class="section-main">
+      <h1 class="news-heading">Recomendaciones</h1>
+      <div class="two-grid">
+        <div class="tile-card">Playlists</div>
+        <div class="tile-card">Descubrí</div>
+        <div class="tile-card">Novedades</div>
+        <div class="tile-card">Clásicos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-fade fade-dark"></div>
+<!-- Sección inline: Contacto -->
+<section id="sec-contacto" class="inline-section simple-section theme-dark">
+  <div class="section-grid">
+    <div class="section-main">
+      <div class="contact-block">
+        <h2 class="contact-heading">Contactanos</h2>
+        <div class="contact-emails">
+          <a class="email-item" href="mailto:comercial@iplay.com.ar">
+            <span class="email-label">Comercial</span>
+            <span class="email-value">comercial@iplay.com.ar</span>
+          </a>
+          <a class="email-item" href="mailto:hola@iplay.com.ar">
+            <span class="email-label">General</span>
+            <span class="email-value">hola@iplay.com.ar</span>
+          </a>
+        </div>
+        <ul class="social-list" aria-label="Redes sociales">
+          <li>
+            <a class="social social-fb" href="#" aria-label="Facebook">
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <circle class="ring" cx="32" cy="32" r="28"/>
+                <path fill="#1877F2" d="M32 12c11 0 20 9 20 20s-9 20-20 20-20-9-20-20 9-20 20-20z" opacity="0"/>
+                <path fill="#1877F2" d="M36.5 20H33c-1.8 0-3 .6-3 2.9V26h6.1l-.8 6H30v18h-7V32h-5v-6h5v-4.2C23 17 26.6 14 32 14h4.5v6z"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="social social-tw" href="#" aria-label="X">
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <circle class="ring" cx="32" cy="32" r="28"/>
+                <path fill="#1DA1F2" d="M18 20l12.8 15.3L18 44h7.2l7.3-7.7L40.5 44H46L33.6 28.5 45.5 20h-7.1l-6.6 7-6.1-7H18z"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="social social-ig" href="#" aria-label="Instagram">
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <defs>
+                  <linearGradient id="igGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#feda75"/>
+                    <stop offset="25%" stop-color="#fa7e1e"/>
+                    <stop offset="50%" stop-color="#d62976"/>
+                    <stop offset="75%" stop-color="#962fbf"/>
+                    <stop offset="100%" stop-color="#4f5bd5"/>
+                  </linearGradient>
+                </defs>
+                <circle class="ring" cx="32" cy="32" r="28"/>
+                <rect x="20" y="20" width="24" height="24" rx="7" ry="7" fill="none" stroke="url(#igGrad)" stroke-width="4"/>
+                <circle cx="32" cy="32" r="6" fill="url(#igGrad)"/>
+                <circle cx="40" cy="24" r="2.2" fill="url(#igGrad)"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="social social-in" href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <circle class="ring" cx="32" cy="32" r="28"/>
+                <path fill="#0A66C2" d="M22 28h-6v18h6V28zm-3-3.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7zM46 46h-6V37c0-2.5-1.4-4-3.4-4-2 0-3.1 1.4-3.1 4V46h-6V28h6v2.5c1.1-1.5 2.6-2.5 5.3-2.5 3.8 0 7.2 2.6 7.2 8.6V46z"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="social social-yt" href="#" aria-label="YouTube">
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <circle class="ring" cx="32" cy="32" r="28"/>
+                <path fill="#FF0000" d="M18 26c0-2.6 2.1-4.6 4.6-4.6h18.8c2.6 0 4.6 2.1 4.6 4.6v12c0 2.6-2.1 4.6-4.6 4.6H22.6A4.6 4.6 0 0 1 18 38V26z"/>
+                <polygon points="29,24 43,32 29,40" fill="#fff"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="social social-tt" href="#" aria-label="TikTok">
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <circle class="ring" cx="32" cy="32" r="28"/>
+                <!-- aproximación multicolor: trazos cyan y magenta detrás del negro -->
+                <path fill="#25F4EE" d="M37 20c1.8 1.9 4.2 3.2 7 3.4v4.8c-3-.1-5.5-1-7-2.2V36c0 5.3-4.3 9.6-9.6 9.6S17.8 41.3 17.8 36c0-5.3 4.3-9.6 9.6-9.6 1 0 2 .2 2.9.5v4.9c-.9-.5-1.9-.7-2.9-.7a4.1 4.1 0 100 8.2c2.2 0 4.1-1.8 4.1-4.1V20h5.5z" opacity=".7"/>
+                <path fill="#FE2C55" d="M37 21.4c1.8 1.9 4.2 3.2 7 3.4v3.5c-3-.1-5.5-1-7-2.2V35c0 5.3-4.3 9.6-9.6 9.6-3 0-5.6-1.4-7.3-3.6 1.6 1 3.6 1.6 5.6 1.6 5.3 0 9.6-4.3 9.6-9.6V21.4z" opacity=".7"/>
+                <path fill="#000" d="M38 20c2.1 2.2 4.7 3.6 7.7 3.8v6.1c-3.2-.1-5.9-1.1-7.7-2.6v10.7c0 6-4.9 10.9-10.9 10.9S16 44 16 38c0-6 4.9-10.9 10.9-10.9 1.1 0 2.1.2 3.1.5v6.3a5.1 5.1 0 0 0-3.1-1c-2.8 0-5.1 2.3-5.1 5.1s2.3 5.1 5.1 5.1c2.8 0 5.1-2.3 5.1-5.1V20h6z"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Footer con reproductor de radio -->
@@ -192,6 +401,6 @@
     </audio>
 </footer>
 
-    <script src="js/script.js"></script>
+    <script src="js/scriptPrueba.js"></script>
 </body>
 </html>
