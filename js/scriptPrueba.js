@@ -186,6 +186,21 @@ document.addEventListener('DOMContentLoaded', function() {
             openInlineSection(id);
         });
     });
+
+    // Expanding cards (para La Radio y Recomendaciones) en dispositivos táctiles
+    document.querySelectorAll('[data-expander]').forEach(row => {
+        const cards = Array.from(row.querySelectorAll('.exp-card'));
+        // Para hover ya funciona con CSS; en touch alternamos estado activo
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                const isTouch = matchMedia('(hover: none) and (pointer: coarse)').matches;
+                if (!isTouch) return; // en desktop, el hover ya hace el trabajo
+                e.preventDefault();
+                cards.forEach(c => c.classList.remove('is-active'));
+                card.classList.add('is-active');
+            });
+        });
+    });
 });
 
 // =============== Noticias (Google News RSS) ===============
@@ -285,23 +300,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!grid || !tabs) return;
 
     const FEEDS = {
-        actualidad: 'https://news.google.com/rss?hl=es-419&gl=AR&ceid=AR:es-419',
-        deportes: 'https://news.google.com/rss/headlines/section/topic/SPORTS?hl=es-419&gl=AR&ceid=AR:es-419',
-        espectaculos: 'https://news.google.com/rss/headlines/section/topic/ENTERTAINMENT?hl=es-419&gl=AR&ceid=AR:es-419'
+        actualidad: "https://r.jina.ai/http://news.google.com/rss?hl=es-419&gl=AR&ceid=AR:es-419",
+        deportes: "https://r.jina.ai/http://news.google.com/rss/headlines/section/topic/SPORTS?hl=es-419&gl=AR&ceid=AR:es-419",
+        espectaculos: "https://r.jina.ai/http://news.google.com/rss/headlines/section/topic/ENTERTAINMENT?hl=es-419&gl=AR&ceid=AR:es-419",
     };
     const newsCache = {};
 
-    async function fetchRSS(url) {
-        const jina = `https://r.jina.ai/http/${url.replace(/^https?:\/\//,'')}`;
-        try {
-            const r = await fetch(jina, { cache: 'no-store' });
-            if (r.ok) return await r.text();
-        } catch {}
-        const all = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
-        const r2 = await fetch(all, { cache: 'no-store' });
-        if (!r2.ok) throw new Error('RSS fetch fail');
-        return await r2.text();
-    }
+async function fetchRSS(url) {
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(`RSS fetch failed: ${res.status}`);
+  const xmlText = await res.text();
+  const doc = new DOMParser().parseFromString(xmlText, "text/xml");
+  return [...doc.querySelectorAll("item")].map(item => ({
+    title: item.querySelector("title")?.textContent ?? "",
+    link:  item.querySelector("link")?.textContent ?? "",
+    date:  item.querySelector("pubDate")?.textContent ?? "",
+    source: item.querySelector("source")?.textContent ?? "Google News"
+  }));
+}
+
+      
 
     function parseRSS(xmlText) {
         const doc = new DOMParser().parseFromString(xmlText, 'text/xml');
