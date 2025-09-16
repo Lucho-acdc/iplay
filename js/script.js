@@ -141,18 +141,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // Actualizar la fecha cada minuto
     setInterval(updateDate, 60000);
 
-    // Altura dinámica de la sección hero (entre header y footer)
+// Altura dinámica de la sección hero (entre header y footer)
     function updateHeroHeight() {
         const header = document.querySelector('.navbar');
         const footer = document.querySelector('.radio-player');
-        const headerH = header ? header.offsetHeight : 0;
-        const footerH = footer ? footer.offsetHeight : 0;
-        const val = `calc(100vh - ${headerH}px - ${footerH}px)`;
-        document.documentElement.style.setProperty('--hero-min-h', val);
+        const headerH = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
+        const footerH = footer ? Math.ceil(footer.getBoundingClientRect().height) : 0;
+        // usar calc en la variable para permitir uso directo en CSS
+        document.documentElement.style.setProperty('--hero-min-h', `calc(100vh - ${headerH}px - ${footerH}px)`);
     }
+
+    // Debounce helper y bind
+    function debounce(fn, wait) {
+      let t = null;
+      return function(...args) {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), wait);
+      };
+    }
+
+    const debouncedUpdateHeroHeight = debounce(updateHeroHeight, 120);
     updateHeroHeight();
-    window.addEventListener('resize', updateHeroHeight);
-    window.addEventListener('orientationchange', updateHeroHeight);
+    window.addEventListener('resize', debouncedUpdateHeroHeight);
+    window.addEventListener('orientationchange', debouncedUpdateHeroHeight);
+    window.addEventListener('load', updateHeroHeight);
 
     // Asegurar reproducción del video de portada (autoplay silencioso)
     const heroVideo = document.querySelector('.media-video');
@@ -165,6 +177,42 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+
+    // Abrir secciones inline (cámaras/noticias) bajo la principal
+    function openInlineSection(id) {
+        const sec = document.getElementById(id);
+        if (!sec) return;
+        sec.classList.add('is-open');
+        // permitir scroll si estaba al tope
+        document.body.style.overflowY = 'auto';
+        // scroll con offset de la navbar
+        const header = document.querySelector('.navbar');
+        const offset = (header ? header.offsetHeight : 0) + 6;
+        const top = sec.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+    }
+    document.querySelectorAll('[data-open-section]').forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const id = el.getAttribute('data-open-section');
+            openInlineSection(id);
+        });
+    });
+
+    // Expanding cards (para La Radio y Recomendaciones) en dispositivos táctiles
+    document.querySelectorAll('[data-expander]').forEach(row => {
+        const cards = Array.from(row.querySelectorAll('.exp-card'));
+        // Para hover ya funciona con CSS; en touch alternamos estado activo
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                const isTouch = matchMedia('(hover: none) and (pointer: coarse)').matches;
+                if (!isTouch) return; // en desktop, el hover ya hace el trabajo
+                e.preventDefault();
+                cards.forEach(c => c.classList.remove('is-active'));
+                card.classList.add('is-active');
+            });
+        });
+    });
 });
 
 // =============== Noticias (Google News RSS) ===============
@@ -264,23 +312,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!grid || !tabs) return;
 
     const FEEDS = {
-        actualidad: 'https://news.google.com/rss?hl=es-419&gl=AR&ceid=AR:es-419',
-        deportes: 'https://news.google.com/rss/headlines/section/topic/SPORTS?hl=es-419&gl=AR&ceid=AR:es-419',
-        espectaculos: 'https://news.google.com/rss/headlines/section/topic/ENTERTAINMENT?hl=es-419&gl=AR&ceid=AR:es-419'
+        actualidad: "https://r.jina.ai/http://news.google.com/rss?hl=es-419&gl=AR&ceid=AR:es-419",
+        deportes: "https://r.jina.ai/http://news.google.com/rss/headlines/section/topic/SPORTS?hl=es-419&gl=AR&ceid=AR:es-419",
+        espectaculos: "https://r.jina.ai/http://news.google.com/rss/headlines/section/topic/ENTERTAINMENT?hl=es-419&gl=AR&ceid=AR:es-419",
     };
     const newsCache = {};
 
-    async function fetchRSS(url) {
-        const jina = `https://r.jina.ai/http/${url.replace(/^https?:\/\//,'')}`;
-        try {
-            const r = await fetch(jina, { cache: 'no-store' });
-            if (r.ok) return await r.text();
-        } catch {}
-        const all = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
-        const r2 = await fetch(all, { cache: 'no-store' });
-        if (!r2.ok) throw new Error('RSS fetch fail');
-        return await r2.text();
-    }
+async function fetchRSS(url) {
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(`RSS fetch failed: ${res.status}`);
+  const xmlText = await res.text();
+  const doc = new DOMParser().parseFromString(xmlText, "text/xml");
+  return [...doc.querySelectorAll("item")].map(item => ({
+    title: item.querySelector("title")?.textContent ?? "",
+    link:  item.querySelector("link")?.textContent ?? "",
+    date:  item.querySelector("pubDate")?.textContent ?? "",
+    source: item.querySelector("source")?.textContent ?? "Google News"
+  }));
+}
+
+      
 
     function parseRSS(xmlText) {
         const doc = new DOMParser().parseFromString(xmlText, 'text/xml');
@@ -324,9 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
         list.forEach(n => {
             const a = document.createElement('a');
             a.className = 'news-card'; a.href = n.link; a.target = '_blank'; a.rel = 'noopener';
-            const imgSrc = n.image || fallbackIcon(n.link);
             a.innerHTML = `
-                <div class=\"news-thumb\"><img src=\"${imgSrc}\" alt=\"\"></div>
                 <div class=\"news-title\">${n.title}</div>
                 <div class=\"news-meta\"><span class=\"news-source\">${n.src || host(n.link)}</span><span class=\"news-time\">${n.date ? timeAgo(n.date) : ''}</span></div>`;
             frag.appendChild(a);
@@ -516,10 +565,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Manejo de reconexión y failover de stream
-    const STREAM_SOURCES = [
-        'https://168.90.252.40/listen/intelinet_play/stream',
-        'http://168.90.252.40/listen/intelinet_play/stream'
-    ];
+    const STREAM_SOURCES = (location.protocol === 'https:'
+        ? ['https://168.90.252.40/listen/intelinet_play/stream'] // evitar HTTP en HTTPS por mixed content
+        : ['http://168.90.252.40/listen/intelinet_play/stream','https://168.90.252.40/listen/intelinet_play/stream']
+    );
     let streamIndex = 0;
     let reconnectTimer = null;
     let reconnectDelay = 3000; // ms (aumenta progresivo)

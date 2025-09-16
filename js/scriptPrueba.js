@@ -141,18 +141,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // Actualizar la fecha cada minuto
     setInterval(updateDate, 60000);
 
-    // Altura dinámica de la sección hero (entre header y footer)
+// Altura dinámica de la sección hero (entre header y footer)
     function updateHeroHeight() {
         const header = document.querySelector('.navbar');
         const footer = document.querySelector('.radio-player');
-        const headerH = header ? header.offsetHeight : 0;
-        const footerH = footer ? footer.offsetHeight : 0;
-        const val = `calc(100vh - ${headerH}px - ${footerH}px)`;
-        document.documentElement.style.setProperty('--hero-min-h', val);
+        const headerH = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
+        const footerH = footer ? Math.ceil(footer.getBoundingClientRect().height) : 0;
+        // usar calc en la variable para permitir uso directo en CSS
+        document.documentElement.style.setProperty('--hero-min-h', `calc(100vh - ${headerH}px - ${footerH}px)`);
     }
+
+    // Debounce helper y bind
+    function debounce(fn, wait) {
+      let t = null;
+      return function(...args) {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), wait);
+      };
+    }
+
+    const debouncedUpdateHeroHeight = debounce(updateHeroHeight, 120);
     updateHeroHeight();
-    window.addEventListener('resize', updateHeroHeight);
-    window.addEventListener('orientationchange', updateHeroHeight);
+    window.addEventListener('resize', debouncedUpdateHeroHeight);
+    window.addEventListener('orientationchange', debouncedUpdateHeroHeight);
+    window.addEventListener('load', updateHeroHeight);
 
     // Asegurar reproducción del video de portada (autoplay silencioso)
     const heroVideo = document.querySelector('.media-video');
