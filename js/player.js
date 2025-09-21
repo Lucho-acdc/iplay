@@ -10,11 +10,11 @@
 
 // =============== CONFIGURACIÓN ===============
 // Editar estas constantes para cambiar comportamiento del reproductor
-const STREAM_URL = 'https://168.90.252.40/listen/intelinet_play/stream';
-const NOWPLAYING_URL = 'https://168.90.252.40/api/nowplaying/intelinet_play';
+const STREAM_URL = 'https://168.90.255.12/listen/intelinet_play/stream';
+const NOWPLAYING_URL = 'https://168.90.255.12/api/nowplaying/intelinet_play';
 const STREAM_SOURCES = [
-    'https://168.90.252.40/listen/intelinet_play/stream',
-    'http://168.90.252.40/listen/intelinet_play/stream' // fallback HTTP
+    'https://168.90.255.12/listen/intelinet_play/stream',
+    'http://168.90.255.12/listen/intelinet_play/stream' // fallback HTTP
 ];
 
 // =============== CLASE REPRODUCTOR ===============

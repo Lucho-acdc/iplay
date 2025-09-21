@@ -1,4 +1,4 @@
-// Configuración de AccuWeather 
+﻿// Configuración de AccuWeather 
 const ACCUWEATHER_API_KEY = 'zpka_361cc4e5ac8f45368648240f94417fcd_a32eaee3';
 const CITY_KEY = '7894'; // Key de Buenos Aires, Argentina 
 
